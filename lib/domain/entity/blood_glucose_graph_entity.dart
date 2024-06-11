@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:graph_sample/domain/entity/blood_glucose_graph_point_entity.dart';
 
+@immutable
 class BloodGlucoseGraphEntity {
-  List<BloodGlucoseGraphPointEntity> points;
+  final List<BloodGlucoseGraphPointEntity> points;
 
-  BloodGlucoseGraphEntity(this.points);
+  const BloodGlucoseGraphEntity(this.points);
 }
