@@ -17,6 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$BloodGlucoseGraphBlocState {
   ViewStatus get viewStatus => throw _privateConstructorUsedError;
+  List<BloodGlucoseGraphPointEntity> get points =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BloodGlucoseGraphBlocStateCopyWith<BloodGlucoseGraphBlocState>
@@ -30,7 +32,7 @@ abstract class $BloodGlucoseGraphBlocStateCopyWith<$Res> {
       _$BloodGlucoseGraphBlocStateCopyWithImpl<$Res,
           BloodGlucoseGraphBlocState>;
   @useResult
-  $Res call({ViewStatus viewStatus});
+  $Res call({ViewStatus viewStatus, List<BloodGlucoseGraphPointEntity> points});
 }
 
 /// @nodoc
@@ -48,12 +50,17 @@ class _$BloodGlucoseGraphBlocStateCopyWithImpl<$Res,
   @override
   $Res call({
     Object? viewStatus = null,
+    Object? points = null,
   }) {
     return _then(_value.copyWith(
       viewStatus: null == viewStatus
           ? _value.viewStatus
           : viewStatus // ignore: cast_nullable_to_non_nullable
               as ViewStatus,
+      points: null == points
+          ? _value.points
+          : points // ignore: cast_nullable_to_non_nullable
+              as List<BloodGlucoseGraphPointEntity>,
     ) as $Val);
   }
 }
@@ -67,7 +74,7 @@ abstract class _$$BloodGlucoseGraphBlocStateImplCopyWith<$Res>
       __$$BloodGlucoseGraphBlocStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ViewStatus viewStatus});
+  $Res call({ViewStatus viewStatus, List<BloodGlucoseGraphPointEntity> points});
 }
 
 /// @nodoc
@@ -84,12 +91,17 @@ class __$$BloodGlucoseGraphBlocStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? viewStatus = null,
+    Object? points = null,
   }) {
     return _then(_$BloodGlucoseGraphBlocStateImpl(
       viewStatus: null == viewStatus
           ? _value.viewStatus
           : viewStatus // ignore: cast_nullable_to_non_nullable
               as ViewStatus,
+      points: null == points
+          ? _value._points
+          : points // ignore: cast_nullable_to_non_nullable
+              as List<BloodGlucoseGraphPointEntity>,
     ));
   }
 }
@@ -97,16 +109,27 @@ class __$$BloodGlucoseGraphBlocStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$BloodGlucoseGraphBlocStateImpl extends _BloodGlucoseGraphBlocState {
-  const _$BloodGlucoseGraphBlocStateImpl({this.viewStatus = ViewStatus.initial})
-      : super._();
+  const _$BloodGlucoseGraphBlocStateImpl(
+      {this.viewStatus = ViewStatus.initial,
+      final List<BloodGlucoseGraphPointEntity> points = const []})
+      : _points = points,
+        super._();
 
   @override
   @JsonKey()
   final ViewStatus viewStatus;
+  final List<BloodGlucoseGraphPointEntity> _points;
+  @override
+  @JsonKey()
+  List<BloodGlucoseGraphPointEntity> get points {
+    if (_points is EqualUnmodifiableListView) return _points;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_points);
+  }
 
   @override
   String toString() {
-    return 'BloodGlucoseGraphBlocState(viewStatus: $viewStatus)';
+    return 'BloodGlucoseGraphBlocState(viewStatus: $viewStatus, points: $points)';
   }
 
   @override
@@ -115,11 +138,13 @@ class _$BloodGlucoseGraphBlocStateImpl extends _BloodGlucoseGraphBlocState {
         (other.runtimeType == runtimeType &&
             other is _$BloodGlucoseGraphBlocStateImpl &&
             (identical(other.viewStatus, viewStatus) ||
-                other.viewStatus == viewStatus));
+                other.viewStatus == viewStatus) &&
+            const DeepCollectionEquality().equals(other._points, _points));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, viewStatus);
+  int get hashCode => Object.hash(
+      runtimeType, viewStatus, const DeepCollectionEquality().hash(_points));
 
   @JsonKey(ignore: true)
   @override
@@ -130,12 +155,16 @@ class _$BloodGlucoseGraphBlocStateImpl extends _BloodGlucoseGraphBlocState {
 }
 
 abstract class _BloodGlucoseGraphBlocState extends BloodGlucoseGraphBlocState {
-  const factory _BloodGlucoseGraphBlocState({final ViewStatus viewStatus}) =
+  const factory _BloodGlucoseGraphBlocState(
+          {final ViewStatus viewStatus,
+          final List<BloodGlucoseGraphPointEntity> points}) =
       _$BloodGlucoseGraphBlocStateImpl;
   const _BloodGlucoseGraphBlocState._() : super._();
 
   @override
   ViewStatus get viewStatus;
+  @override
+  List<BloodGlucoseGraphPointEntity> get points;
   @override
   @JsonKey(ignore: true)
   _$$BloodGlucoseGraphBlocStateImplCopyWith<_$BloodGlucoseGraphBlocStateImpl>

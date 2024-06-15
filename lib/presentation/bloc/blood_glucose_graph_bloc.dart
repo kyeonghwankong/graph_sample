@@ -32,7 +32,7 @@ class BloodGlucoseGraphBloc extends Bloc<BloodGlucoseBlocEvent, BloodGlucoseGrap
       final entity = await _useCase.execute();
 
       if (entity.points.isNotEmpty) {
-        emit(state.asSuccess());
+        emit(state.asSuccess(entity.points));
       } else {
         emit(state.asEmpty());
       }

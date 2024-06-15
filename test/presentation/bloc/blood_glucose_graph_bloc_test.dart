@@ -50,6 +50,7 @@ void main() {
       verify: (BloodGlucoseGraphBloc bloc) {
         verify(mockGetBloodGlucoseGraphUseCase.execute()).called(1);
         expect(bloc.state.viewStatus.isSuccess, true);
+        expect(bloc.state.points.isNotEmpty, true);
       },
     );
 
