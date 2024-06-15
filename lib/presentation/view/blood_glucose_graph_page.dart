@@ -4,7 +4,6 @@ import 'package:graph_sample/common/presentation/empty_view.dart';
 import 'package:graph_sample/common/presentation/failure_view.dart';
 import 'package:graph_sample/common/presentation/loading_view.dart';
 import 'package:graph_sample/common/presentation/view_status.dart';
-import 'package:graph_sample/dependency_injection.config.dart';
 import 'package:graph_sample/presentation/bloc/blood_glucose_graph_bloc.dart';
 import 'package:graph_sample/presentation/bloc/blood_glucose_graph_bloc_state.dart';
 
