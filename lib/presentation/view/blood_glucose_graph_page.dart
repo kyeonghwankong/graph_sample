@@ -6,6 +6,7 @@ import 'package:graph_sample/common/presentation/loading_view.dart';
 import 'package:graph_sample/common/presentation/view_status.dart';
 import 'package:graph_sample/presentation/bloc/blood_glucose_graph_bloc.dart';
 import 'package:graph_sample/presentation/bloc/blood_glucose_graph_bloc_state.dart';
+import 'package:graph_sample/presentation/view/graph_view.dart';
 
 class BloodGlucoseGraphPage extends StatelessWidget {
   const BloodGlucoseGraphPage({super.key});
@@ -43,8 +44,13 @@ class _BloodGlucoseGraphViewState extends State<_BloodGlucoseGraphView> {
             case ViewStatus.failure:
               return const FailureView();
             case ViewStatus.success:
-              return const Center(
-                child: Text('sample'),
+              // return LineChartSample5();
+              return GraphView(
+                graphViewData: state.graphViewData,
+                targetBand: state.targetBand,
+                onTapPoint: (graphPoint) {
+                  ///
+                },
               );
           }
         },

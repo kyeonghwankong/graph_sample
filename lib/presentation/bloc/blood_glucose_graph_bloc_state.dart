@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:graph_sample/common/presentation/view_status.dart';
-import 'package:graph_sample/domain/entity/blood_glucose_graph_point_entity.dart';
+import 'package:graph_sample/presentation/view_data/graph_target_band.dart';
+import 'package:graph_sample/presentation/view_data/graph_view_data.dart';
 
 part '.generated/blood_glucose_graph_bloc_state.freezed.dart';
 
@@ -8,7 +9,8 @@ part '.generated/blood_glucose_graph_bloc_state.freezed.dart';
 class BloodGlucoseGraphBlocState with _$BloodGlucoseGraphBlocState {
   const factory BloodGlucoseGraphBlocState({
     @Default(ViewStatus.initial) ViewStatus viewStatus,
-    @Default([]) List<BloodGlucoseGraphPointEntity> points,
+    @Default(GraphViewData([])) GraphViewData graphViewData,
+    @Default(GraphTargetBand()) targetBand,
   }) = _BloodGlucoseGraphBlocState;
 
   const BloodGlucoseGraphBlocState._();
@@ -21,11 +23,15 @@ class BloodGlucoseGraphBlocState with _$BloodGlucoseGraphBlocState {
     return copyWith(viewStatus: ViewStatus.empty);
   }
 
-  BloodGlucoseGraphBlocState asSuccess(List<BloodGlucoseGraphPointEntity> points) {
-    return copyWith(viewStatus: ViewStatus.success, points: points);
+  BloodGlucoseGraphBlocState asSuccess() {
+    return copyWith(viewStatus: ViewStatus.success);
   }
 
   BloodGlucoseGraphBlocState asFailure() {
     return copyWith(viewStatus: ViewStatus.failure);
+  }
+
+  BloodGlucoseGraphBlocState saveGraphViewData(GraphViewData graphViewData) {
+    return copyWith(graphViewData: graphViewData);
   }
 }

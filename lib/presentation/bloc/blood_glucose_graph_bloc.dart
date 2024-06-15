@@ -7,6 +7,7 @@ import 'package:graph_sample/dependency_injection.dart';
 import 'package:graph_sample/domain/use_case/get_blood_glucose_graph_use_case.dart';
 import 'package:graph_sample/presentation/bloc/blood_glucose_graph_bloc_event.dart';
 import 'package:graph_sample/presentation/bloc/blood_glucose_graph_bloc_state.dart';
+import 'package:graph_sample/presentation/view_data/graph_view_data.dart';
 
 class BloodGlucoseGraphBloc extends Bloc<BloodGlucoseBlocEvent, BloodGlucoseGraphBlocState> {
   final GetBloodGlucoseGraphUseCase _useCase;
@@ -32,7 +33,7 @@ class BloodGlucoseGraphBloc extends Bloc<BloodGlucoseBlocEvent, BloodGlucoseGrap
       final entity = await _useCase.execute();
 
       if (entity.points.isNotEmpty) {
-        emit(state.asSuccess(entity.points));
+        emit(state.asSuccess().saveGraphViewData(GraphViewData.fromBloodGlucoseGraphEntity(entity)));
       } else {
         emit(state.asEmpty());
       }

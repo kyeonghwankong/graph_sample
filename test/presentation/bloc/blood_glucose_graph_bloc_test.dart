@@ -43,14 +43,27 @@ void main() {
     blocTest(
       'success case',
       setUp: () {
-        when(mockGetBloodGlucoseGraphUseCase.execute()).thenAnswer((_) => Future.value(
-            BloodGlucoseGraphEntity([BloodGlucoseGraphPointEntity(x: 10, y: 10, dateTime: DateTime.now())])));
+        when(mockGetBloodGlucoseGraphUseCase.execute()).thenAnswer(
+          (_) => Future.value(
+            BloodGlucoseGraphEntity(
+              [
+                BloodGlucoseGraphPointEntity(x: 1, y: 0, dateTime: DateTime.now()),
+                BloodGlucoseGraphPointEntity(x: 2, y: 150, dateTime: DateTime.now()),
+                BloodGlucoseGraphPointEntity(x: 3, y: 75, dateTime: DateTime.now()),
+                BloodGlucoseGraphPointEntity(x: 4, y: 250, dateTime: DateTime.now()),
+                BloodGlucoseGraphPointEntity(x: 5, y: 100, dateTime: DateTime.now()),
+                BloodGlucoseGraphPointEntity(x: 6, y: 0, dateTime: DateTime.now()),
+                BloodGlucoseGraphPointEntity(x: 7, y: 90, dateTime: DateTime.now()),
+              ],
+            ),
+          ),
+        );
       },
       build: () => BloodGlucoseGraphBloc(mockGetBloodGlucoseGraphUseCase),
       verify: (BloodGlucoseGraphBloc bloc) {
         verify(mockGetBloodGlucoseGraphUseCase.execute()).called(1);
         expect(bloc.state.viewStatus.isSuccess, true);
-        expect(bloc.state.points.isNotEmpty, true);
+        expect(bloc.state.graphViewData.sections.isNotEmpty, true);
       },
     );
 
