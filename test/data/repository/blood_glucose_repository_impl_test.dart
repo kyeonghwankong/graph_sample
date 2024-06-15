@@ -22,12 +22,13 @@ void main() {
     repository = BloodGlucoseRepositoryImpl(mockDataSource);
   });
 
-  group('happy case', () {
+  group('getBloodGlucoseGraph() test', () {
     test('empty points case', () async {
       when(mockDataSource.getBloodGlucoseGraph())
           .thenAnswer((_) => Future.value(const ResponseModel(data: BloodGlucoseGraphModel([]))));
       final entity = await repository.getBloodGlucoseGraphEntity();
       expect(entity.points.isEmpty, true);
+      verify(mockDataSource.getBloodGlucoseGraph()).called(1);
     });
 
     test('not empty points case', () async {
@@ -35,24 +36,27 @@ void main() {
           (_) => Future.value(const ResponseModel(data: BloodGlucoseGraphModel([BloodGlucoseGraphPointModel()]))));
       final entity = await repository.getBloodGlucoseGraphEntity();
       expect(entity.points.isNotEmpty, true);
+      verify(mockDataSource.getBloodGlucoseGraph()).called(1);
     });
-  });
 
-  test('data null case', () {
-    when(mockDataSource.getBloodGlucoseGraph()).thenAnswer((_) => Future.value(const ResponseModel(data: null)));
+    test('data null case', () {
+      when(mockDataSource.getBloodGlucoseGraph()).thenAnswer((_) => Future.value(const ResponseModel(data: null)));
 
-    expect(
-      () async => await repository.getBloodGlucoseGraphEntity(),
-      throwsA(isA<Error>()),
-    );
-  });
+      expect(
+        () async => await repository.getBloodGlucoseGraphEntity(),
+        throwsA(isA<Error>()),
+      );
+      verify(mockDataSource.getBloodGlucoseGraph()).called(1);
+    });
 
-  test('throw exception case from data source', () {
-    when(mockDataSource.getBloodGlucoseGraph()).thenAnswer((_) => throw Error());
+    test('throw exception case from data source', () {
+      when(mockDataSource.getBloodGlucoseGraph()).thenAnswer((_) => throw Error());
 
-    expect(
-      () async => await repository.getBloodGlucoseGraphEntity(),
-      throwsA(isA<Error>()),
-    );
+      expect(
+        () async => await repository.getBloodGlucoseGraphEntity(),
+        throwsA(isA<Error>()),
+      );
+      verify(mockDataSource.getBloodGlucoseGraph()).called(1);
+    });
   });
 }
