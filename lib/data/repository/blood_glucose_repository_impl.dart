@@ -18,9 +18,11 @@ class BloodGlucoseRepositoryImpl implements BloodGlucoseRepository {
       final data = model.data;
 
       if (data != null) {
-        data.points.map((point) {
-          return BloodGlucoseGraphPointEntity(x: point.x, y: point.y, dateTime: point.dateTime!);
-        });
+        return BloodGlucoseGraphEntity(
+          data.points.map((point) {
+            return BloodGlucoseGraphPointEntity(x: point.x, y: point.y, dateTime: point.dateTime);
+          }).toList(),
+        );
       }
     } catch (e, s) {
       return Future.error(e, s);

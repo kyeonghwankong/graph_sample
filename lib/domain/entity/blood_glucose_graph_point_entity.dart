@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 class BloodGlucoseGraphPointEntity {
   final int x;
   final int y;
-  final DateTime dateTime;
+  final DateTime? dateTime;
 
   const BloodGlucoseGraphPointEntity({
     required this.x,

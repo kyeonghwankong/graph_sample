@@ -28,7 +28,7 @@ class BloodGlucoseGraphPointModel {
   const BloodGlucoseGraphPointModel({
     this.x = 0,
     this.y = 0,
-    required this.dateTime,
+    this.dateTime,
   });
 
   factory BloodGlucoseGraphPointModel.fromJson(Map<String, dynamic> json) =>
