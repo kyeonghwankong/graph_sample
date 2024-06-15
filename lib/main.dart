@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:graph_sample/dependency_injection.dart';
 
 void main() {
+  configureDependencies();
   runApp(const MyApp());
 }
 
