@@ -12,7 +12,7 @@ class GraphViewData {
   static GraphViewData fromBloodGlucoseGraphEntity(BloodGlucoseGraphEntity entity, GraphTargetBand band) {
     final points = entity.points.map((point) => GraphPoint.fromBloodGlucoseGraphPointEntity(point)).toList();
 
-    /// Gradient의 방향등을 type으로 지정해줌
+    // Gradient 의 방향, 색상을 위해 section 으로 분리
     List<GraphSection> sections = [];
     List<GraphPoint> currentSectionPoints = [];
     GraphSectionType currentSectionType;
@@ -21,10 +21,10 @@ class GraphViewData {
       currentSectionType = _getGraphSectionType(
         points[0].y.toInt(),
         points[0].y.toInt(),
-        band.minGraphStartTarget.toInt(),
-        band.minGraphEndTarget.toInt(),
-        band.maxGraphStartTarget.toInt(),
-        band.maxGraphEndTarget.toInt(),
+        band.minTargetBand.toInt() - band.interpolationValue.toInt(),
+        band.minTargetBand.toInt() + band.interpolationValue.toInt(),
+        band.maxTargetBand.toInt() - band.interpolationValue.toInt(),
+        band.maxTargetBand.toInt() + band.interpolationValue.toInt(),
       );
       for (int i = 0; i < points.length - 1; i++) {
         final currentPoint = points[i];
@@ -37,10 +37,10 @@ class GraphViewData {
           sectionType = _getGraphSectionType(
             currentPoint.y.toInt(),
             nextPoint.y.toInt(),
-            band.minGraphStartTarget.toInt(),
-            band.minGraphEndTarget.toInt(),
-            band.maxGraphStartTarget.toInt(),
-            band.maxGraphEndTarget.toInt(),
+            band.minTargetBand.toInt() - band.interpolationValue.toInt(),
+            band.minTargetBand.toInt() + band.interpolationValue.toInt(),
+            band.maxTargetBand.toInt() - band.interpolationValue.toInt(),
+            band.maxTargetBand.toInt() + band.interpolationValue.toInt(),
           );
         }
 

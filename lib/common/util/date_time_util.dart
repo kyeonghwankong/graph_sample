@@ -24,3 +24,12 @@ String formatDateTimeToKoreanTime(DateTime? dateTime) {
 
   return '$period $hourIn12HourFormat시 $minute분';
 }
+
+String convertMinutesToHoursAndMinutes(int totalMinutes) {
+  final hours = totalMinutes ~/ 60;
+  final minutes = totalMinutes % 60;
+  final period = hours >= 12 ? '오후' : '오전';
+  final displayHours = hours % 12 == 0 ? 12 : hours % 12;
+  return '$period $displayHours시 $minutes분';
+}
+
