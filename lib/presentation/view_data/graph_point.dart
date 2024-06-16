@@ -18,7 +18,7 @@ class GraphPoint {
     return GraphPoint(
       x: entity.x.toDouble(),
       y: entity.y.toDouble(),
-      dateString: formatDateTimeToKoreanTime(entity.dateTime),
+      dateString: formatDateTimeToTime(entity.dateTime),
     );
   }
 }

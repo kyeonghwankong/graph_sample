@@ -6,7 +6,7 @@ DateTime? parseDateTime(String? dateTimeStr) {
   return null;
 }
 
-String formatDateTimeToKoreanTime(DateTime? dateTime) {
+String formatDateTimeToTime(DateTime? dateTime) {
   if (dateTime == null) {
     return '';
   }
@@ -25,7 +25,7 @@ String formatDateTimeToKoreanTime(DateTime? dateTime) {
   return '$period $hourIn12HourFormat시 $minute분';
 }
 
-String convertMinutesToHoursAndMinutes(int totalMinutes) {
+String convertMinutesToTime(int totalMinutes) {
   final hours = totalMinutes ~/ 60;
   final minutes = totalMinutes % 60;
   final period = hours >= 12 ? '오후' : '오전';

@@ -104,7 +104,7 @@ class _GraphViewState extends State<_GraphView> {
                         return SideTitleWidget(
                           axisSide: meta.axisSide,
                           child: Text(
-                            convertMinutesToHoursAndMinutes(value.toInt()),
+                            convertMinutesToTime(value.toInt()),
                             style: const TextStyle(color: Colors.black, fontSize: 8),
                           ),
                         );

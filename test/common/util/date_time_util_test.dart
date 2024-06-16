@@ -32,13 +32,13 @@ void main() {
     test('formatDateTimeToKoreanTime test case 1', () {
       String dateTimeStr = '2023-11-14T02:13:00';
       DateTime? dateTime = parseDateTime(dateTimeStr);
-      expect(formatDateTimeToKoreanTime(dateTime!), '오전 2시 13분');
+      expect(formatDateTimeToTime(dateTime!), '오전 2시 13분');
     });
 
     test('formatDateTimeToKoreanTime test case 2', () {
       String dateTimeStr = '2023-11-14T23:26:00';
       DateTime? dateTime = parseDateTime(dateTimeStr);
-      expect(formatDateTimeToKoreanTime(dateTime!), '오후 11시 26분');
+      expect(formatDateTimeToTime(dateTime!), '오후 11시 26분');
     });
   });
 }
