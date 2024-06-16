@@ -58,7 +58,7 @@ class _ZoomableGraphViewState extends State<ZoomableGraphView> {
       if (horizontalDistance == 0) return;
 
       final lastMinMaxDistance = max(_maxX - _minX, 0.0);
-      final moveDistance = lastMinMaxDistance * 0.5 * horizontalDistance;
+      final moveDistance = lastMinMaxDistance * 0.005 * horizontalDistance;
       double newMinX = _minX - moveDistance;
       double newMaxX = _maxX - moveDistance;
 

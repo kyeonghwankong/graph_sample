@@ -78,27 +78,33 @@ class _GraphViewState extends State<_GraphView> {
               minX: minX,
               gridData: const FlGridData(drawVerticalLine: false),
               clipData: const FlClipData.all(),
-              lineTouchData: LineTouchData(
-                touchSpotThreshold: 0.1,
-                handleBuiltInTouches: true,
-                enabled: false,
-                touchCallback: (event, response) {
-                  if (event is FlTapUpEvent) {
-                    if (response != null && response.lineBarSpots != null) {
-                      // TODO
-                    }
-                  }
-                },
-              ),
+              lineTouchData: const LineTouchData(enabled: false),
               lineBarsData: widget.graphViewData.sections.map((section) {
                 return LineChartBarData(
                   spots: section.points.map((point) => FlSpot(point.x, point.y)).toList(),
                   barWidth: 4,
                   dotData: const FlDotData(show: false),
-                  isStrokeCapRound: true,
-                  isStrokeJoinRound: true,
+                  showingIndicators: _getShowingIndicators(section),
                   gradient: _getGradient(section, widget.targetBand),
                   color: _getColor(section.type),
+                  // aboveBarData: BarAreaData(
+                  //   show: section.type.isAboveToTarget || section.type.isTargetToAbove || section.type.isAboveTarget,
+                  //   gradient: LinearGradient(
+                  //     colors: [widget.targetUnderGraphColor.withOpacity(0.5), Colors.white],
+                  //     stops: const [0.05, 0.1],
+                  //     begin: Alignment.bottomCenter,
+                  //     end: Alignment.topCenter,
+                  //   ),
+                  // ),
+                  // belowBarData: BarAreaData(
+                  //   show: true,
+                  //   gradient: LinearGradient(
+                  //     colors: [widget.targetOverGraphColor.withOpacity(0.5), Colors.white],
+                  //     stops: const [0.05, 0.1],
+                  //     begin: Alignment.topCenter,
+                  //     end: Alignment.bottomCenter,
+                  //   ),
+                  // ),
                 );
               }).toList(),
             ),
@@ -205,5 +211,22 @@ class _GraphViewState extends State<_GraphView> {
       default:
         return Colors.transparent;
     }
+  }
+
+  List<int> _getShowingIndicators(GraphSection section) {
+    final List<int> indexList = [];
+    for (int i = 0; i < section.points.length; i++) {
+      if (section.points[i].x == 60 * 12) {
+        // 오후 12시
+        indexList.add(i);
+      }
+
+      if (section.points[i].x == 60 * 22) {
+        // 오후 10시
+        indexList.add(i);
+      }
+    }
+
+    return indexList;
   }
 }
