@@ -2,13 +2,14 @@ import 'package:graph_sample/domain/entity/blood_glucose_graph_entity.dart';
 import 'package:graph_sample/presentation/enum/graph_section_type.dart';
 import 'package:graph_sample/presentation/view_data/graph_point.dart';
 import 'package:graph_sample/presentation/view_data/graph_section.dart';
+import 'package:graph_sample/presentation/view_data/graph_target_band.dart';
 
 class GraphViewData {
   final List<GraphSection> sections;
 
   const GraphViewData(this.sections);
 
-  static GraphViewData fromBloodGlucoseGraphEntity(BloodGlucoseGraphEntity entity) {
+  static GraphViewData fromBloodGlucoseGraphEntity(BloodGlucoseGraphEntity entity, GraphTargetBand band) {
     final points = entity.points.map((point) => GraphPoint.fromBloodGlucoseGraphPointEntity(point)).toList();
 
     /// Gradient의 방향등을 type으로 지정해줌
@@ -17,7 +18,14 @@ class GraphViewData {
     GraphSectionType currentSectionType;
 
     if (points.isNotEmpty) {
-      currentSectionType = _getGraphSectionType(points[0].y.toInt(), points[0].y.toInt(), 85, 95, 155, 165);
+      currentSectionType = _getGraphSectionType(
+        points[0].y.toInt(),
+        points[0].y.toInt(),
+        band.minGraphStartTarget.toInt(),
+        band.minGraphEndTarget.toInt(),
+        band.maxGraphStartTarget.toInt(),
+        band.maxGraphEndTarget.toInt(),
+      );
       for (int i = 0; i < points.length - 1; i++) {
         final currentPoint = points[i];
         final nextPoint = points[i + 1];
@@ -26,7 +34,14 @@ class GraphViewData {
         if (currentPoint.y == nextPoint.y) {
           sectionType = currentSectionType;
         } else {
-          sectionType = _getGraphSectionType(currentPoint.y.toInt(), nextPoint.y.toInt(), 85, 95, 155, 165);
+          sectionType = _getGraphSectionType(
+            currentPoint.y.toInt(),
+            nextPoint.y.toInt(),
+            band.minGraphStartTarget.toInt(),
+            band.minGraphEndTarget.toInt(),
+            band.maxGraphStartTarget.toInt(),
+            band.maxGraphEndTarget.toInt(),
+          );
         }
 
         if (sectionType != currentSectionType && currentSectionPoints.isNotEmpty) {
@@ -42,12 +57,6 @@ class GraphViewData {
       currentSectionPoints.add(points.last);
       sections.add(GraphSection(points: List.from(currentSectionPoints), type: currentSectionType));
     }
-    sections.forEach((section) {
-      print('khkong, Changed!!');
-      section.points.forEach((point) {
-        print('khkong, ${section.type.name} point=${point.x}, ${point.y}, ${point.isSubdivided}');
-      });
-    });
     return GraphViewData(sections);
   }
 

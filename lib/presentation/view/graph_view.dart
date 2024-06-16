@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:graph_sample/presentation/enum/graph_section_type.dart';
+import 'package:graph_sample/presentation/view/zoomable_graph_view.dart';
 import 'package:graph_sample/presentation/view_data/graph_point.dart';
 import 'package:graph_sample/presentation/view_data/graph_section.dart';
 import 'package:graph_sample/presentation/view_data/graph_target_band.dart';
@@ -65,22 +66,45 @@ class _GraphView extends StatefulWidget {
 class _GraphViewState extends State<_GraphView> {
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1,
-      child: LineChart(
-        LineChartData(
-          lineBarsData: widget.graphViewData.sections.map((section) {
-            return LineChartBarData(
-              spots: section.points.map((point) => FlSpot(point.x, point.y)).toList(),
-              barWidth: 4,
-              dotData: const FlDotData(show: false),
-              isCurved: true,
-              gradient: _getGradient(section, widget.targetBand),
-              color: _getColor(section.type),
-            );
-          }).toList(),
-        ),
-      ),
+    return ZoomableGraphView(
+      minX: widget.graphViewData.sections.first.points.first.x,
+      maxX: widget.graphViewData.sections.last.points.last.x,
+      builder: (minX, maxX) {
+        return AspectRatio(
+          aspectRatio: 1,
+          child: LineChart(
+            LineChartData(
+              maxX: maxX,
+              minX: minX,
+              gridData: const FlGridData(drawVerticalLine: false),
+              clipData: const FlClipData.all(),
+              lineTouchData: LineTouchData(
+                touchSpotThreshold: 0.1,
+                handleBuiltInTouches: true,
+                enabled: false,
+                touchCallback: (event, response) {
+                  if (event is FlTapUpEvent) {
+                    if (response != null && response.lineBarSpots != null) {
+                      // TODO
+                    }
+                  }
+                },
+              ),
+              lineBarsData: widget.graphViewData.sections.map((section) {
+                return LineChartBarData(
+                  spots: section.points.map((point) => FlSpot(point.x, point.y)).toList(),
+                  barWidth: 4,
+                  dotData: const FlDotData(show: false),
+                  isStrokeCapRound: true,
+                  isStrokeJoinRound: true,
+                  gradient: _getGradient(section, widget.targetBand),
+                  color: _getColor(section.type),
+                );
+              }).toList(),
+            ),
+          ),
+        );
+      },
     );
   }
 

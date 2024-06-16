@@ -45,12 +45,14 @@ class _BloodGlucoseGraphViewState extends State<_BloodGlucoseGraphView> {
               return const FailureView();
             case ViewStatus.success:
               // return LineChartSample5();
-              return GraphView(
-                graphViewData: state.graphViewData,
-                targetBand: state.targetBand,
-                onTapPoint: (graphPoint) {
-                  ///
-                },
+              return Center(
+                child: GraphView(
+                  graphViewData: state.graphViewData,
+                  targetBand: state.targetBand,
+                  onTapPoint: (graphPoint) {
+                    ///
+                  },
+                ),
               );
           }
         },
